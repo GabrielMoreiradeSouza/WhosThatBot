@@ -4,10 +4,10 @@ const sharp = require('sharp');
 const POKEAPI_BASE = 'https://pokeapi.co/api/v2';
 
 async function fetchRandomPokemon() {
-  const countRes = await axios.get(`${POKEAPI_BASE}/pokemon?limit=0`);
-  const total = countRes.data.count;
-  const id = Math.floor(Math.random() * total) + 1;
-  const pokemonRes = await axios.get(`${POKEAPI_BASE}/pokemon/${id}`);
+  const listRes = await axios.get(`${POKEAPI_BASE}/pokemon?limit=100000&offset=0`);
+  const entries = listRes.data.results;
+  const entry = entries[Math.floor(Math.random() * entries.length)];
+  const pokemonRes = await axios.get(entry.url);
   const data = pokemonRes.data;
 
   return {
